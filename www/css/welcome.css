@@ -1,0 +1,128 @@
+/* Pantalla de bienvenida */
+
+/* Lobby / Welcome Screen */
+#screen-welcome {
+  background: linear-gradient(155deg, #113C1E 0%, #1F6B34 52%, #2E7D32 100%);
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  padding: 20px 24px 32px;
+  justify-content: space-between;
+}
+
+.botanical-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 195, 74, 0.25) 0%, rgba(139, 195, 74, 0) 70%);
+  pointer-events: none;
+}
+
+.orb-1 { width: 280px; height: 280px; top: -60px; right: -80px; }
+.orb-2 { width: 240px; height: 240px; bottom: 40px; left: -90px; }
+
+.campus-pill {
+  align-self: center;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.logo-hero {
+  text-align: center;
+  margin-top: 12px;
+  z-index: 2;
+}
+
+.leaf-badge {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 16px;
+  border-radius: 28px;
+  background: linear-gradient(145deg, #8BC34A, #4CAF50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28), inset 0 2px 4px rgba(255,255,255,0.45);
+  animation: floatLeaf 3.6s ease-in-out infinite;
+}
+
+@keyframes floatLeaf {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(3deg); }
+}
+
+.app-title {
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.app-slogan {
+  font-size: 14px;
+  color: #DDF3D8;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.welcome-glass-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 18px;
+  text-align: center;
+  z-index: 2;
+}
+
+.welcome-glass-card h2 {
+  font-size: 19px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.welcome-glass-card p {
+  font-size: 13px;
+  color: #E3F5DF;
+  line-height: 1.45;
+}
+
+.welcome-stats-mini {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.welcome-stats-mini div strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 900;
+  color: #C5F28A;
+}
+
+.welcome-stats-mini div span {
+  font-size: 11px;
+  color: #D8EED4;
+}
+
+.welcome-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2;
+}
+
+
+/* Zona segura superior en la bienvenida */
+#screen-welcome { padding-top: calc(20px + env(safe-area-inset-top, 0px)); }
