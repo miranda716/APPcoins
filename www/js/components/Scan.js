@@ -6,6 +6,7 @@ import { GPS_STRICT, MAX_SCAN_DISTANCE_M, DEV_SIMULATOR } from '../config.js';
 import { startLocationWatch, distanceToPoint, formatDistance } from '../services/geo.js';
 import { saveProgress } from '../services/data.js';
 import { parseQR } from '../services/qr.js';
+import { refreshChallenges } from '../services/challenges.js';
 import { materialByLabel } from '../data/materials.js';
 
 export function ScanScreen() {
@@ -184,6 +185,8 @@ export function registerRecycle(point, materialLabel, forceCooldown = false) {
   const earned = mat.pts * (state.user.doublePoints ? 2 : 1);
 
   state.user.puntos += earned;
+  state.user.puntosHistoricos += earned;
+  if (!state.session) state.local.recycles += 1; // demo
   state.user.reciclajesTotales += 1;
   state.user.co2Total += mat.co2;
   state.user.doublePoints = false;
@@ -195,21 +198,12 @@ export function registerRecycle(point, materialLabel, forceCooldown = false) {
     puntos: earned
   });
 
-  // Actualizar desafíos
-  let bonusMsg = '';
-  state.challenges.forEach((ch) => {
-    if (!ch.completado && ch.tipo === 'reciclaje') {
-      ch.progreso += 1;
-      if (ch.progreso >= ch.meta) {
-        ch.completado = true;
-        state.user.puntos += ch.puntos;
-        bonusMsg = ` 🏆 ¡Desafío "${ch.titulo}" completado (+${ch.puntos} pts)!`;
-      }
-    }
-  });
-
   emitChange();
-  saveProgress({ titulo: `${materialLabel} · ${point.nombre}`, puntos: earned });
+  // Guarda el reciclaje y después revisa los desafíos (cuentan los reciclajes ya guardados)
+  (async () => {
+    await saveProgress({ titulo: `${materialLabel} · ${point.nombre}`, puntos: earned, tipo: 'reciclaje' });
+    await refreshChallenges();
+  })();
   openModal(`
     <div style="font-size:46px; margin-bottom:6px;">${mat.icon}</div>
     <h3 style="font-size:20px; font-weight:900;">¡Reciclaje registrado!</h3>
@@ -220,7 +214,6 @@ export function registerRecycle(point, materialLabel, forceCooldown = false) {
     <p style="font-size:12px; font-weight:700; color:var(--text-muted);">
       Material: <strong>${materialLabel}</strong> · CO₂ evitado: <strong>+${mat.co2.toFixed(2)} kg</strong>
     </p>
-    ${bonusMsg ? `<p style="font-size:12px; color:var(--secondary); font-weight:800; margin-top:8px;">${bonusMsg}</p>` : ''}
     <button class="btn btn-primary" style="width:100%; margin-top:16px;" onclick="closeModal()">Continuar</button>
   `);
 }

@@ -3,7 +3,8 @@
 export function ChallengeCard(c, variant = 'home') {
   const pct = Math.round((c.progreso / c.meta) * 100);
   const caption = variant === 'full'
-    ? (c.completado ? '✅ Completado' : `Progreso: ${c.progreso} de ${c.meta}`)
+    ? (c.completado ? '✅ Completado' : `Progreso: ${c.progreso} de ${c.meta}`) +
+      ` · ${c.periodo === 'semanal' ? '🔄 semanal' : '⭐ una sola vez'}`
     : `Progreso: ${c.progreso} / ${c.meta}`;
   return `
     <div class="card">

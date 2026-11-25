@@ -42,10 +42,6 @@ export function HomeScreen() {
         <span>CO₂ evitado</span>
       </div>
       <div class="impact-pill-card">
-        <strong>#4 Ing.</strong>
-        <span>Ranking Facultad</span>
-      </div>
-      <div class="impact-pill-card">
         <strong id="home-recycles">32</strong>
         <span>Reciclajes</span>
       </div>
@@ -93,8 +89,10 @@ export function HomeScreen() {
 
 export function renderHome() {
   const u = state.user;
-  const lvl = getLevelInfo(u.puntos);
-  const pct = Math.min(100, Math.max(6, Math.round(((u.puntos - lvl.min) / (lvl.next - lvl.min)) * 100)));
+  const lvl = getLevelInfo(u.puntosHistoricos);
+  const pct = lvl.next === null
+    ? 100
+    : Math.min(100, Math.max(6, Math.round(((u.puntosHistoricos - lvl.min) / (lvl.next - lvl.min)) * 100)));
 
   document.getElementById('home-greeting').textContent = `¡Hola, ${u.nombre.split(' ')[0]}!`;
   document.getElementById('home-points').textContent = u.puntos.toLocaleString('es-CO');

@@ -57,7 +57,7 @@ export function redeemReward(id) {
   });
 
   emitChange();
-  saveProgress({ titulo: `Canje: ${r.titulo} (${r.comercio})`, puntos: -r.costo });
+  saveProgress({ titulo: `Canje: ${r.titulo} (${r.comercio})`, puntos: -r.costo, tipo: 'canje' });
 
   const pattern = Array.from({ length: 25 }, (_, i) => (i * 7 + r.costo) % 3 === 0 ? 'qr-cell w' : 'qr-cell');
   openModal(`

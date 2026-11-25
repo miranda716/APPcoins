@@ -2,6 +2,7 @@
 import { state, resetState } from '../store.js';
 import { getClient } from './supabase.js';
 import { monthLabel, dateLabel } from '../utils/date.js';
+import { refreshChallenges } from './challenges.js';
 
 const ERRORES = {
   'Invalid login credentials': 'Correo o contraseña incorrectos.',
@@ -31,6 +32,7 @@ export async function loadUserData(user) {
     usuario: p.usuario,
     correo: user.email,
     puntos: p.puntos,
+    puntosHistoricos: p.puntos_historicos,
     co2Total: Number(p.co2_total),
     reciclajesTotales: p.reciclajes_totales,
     codigoReferido: p.codigo_referido,
@@ -46,6 +48,8 @@ export async function loadUserData(user) {
     const d = new Date(m.created_at);
     return { mes: monthLabel(d), titulo: m.titulo, fecha: dateLabel(d), puntos: m.puntos };
   });
+
+  await refreshChallenges(); // calcula el progreso semanal y cobra lo pendiente
 }
 
 /** Si ya había sesión guardada en el navegador, la recupera. */

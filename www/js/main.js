@@ -1,5 +1,6 @@
 import { subscribe } from './store.js';
-import { switchTab } from './router.js';
+import { switchTab, onEnter } from './router.js';
+import { refreshChallenges } from './services/challenges.js';
 import { initSupabase } from './services/supabase.js';
 import { restoreSession } from './services/auth.js';
 import { renderAll } from './render.js';
@@ -38,6 +39,10 @@ async function boot() {
   mount();
   subscribe(renderAll);
   renderAll();
+
+  // Al abrir Inicio o Desafíos se recalcula el progreso (semana nueva, invitados nuevos…)
+  onEnter('screen-home', () => refreshChallenges());
+  onEnter('screen-challenges', () => refreshChallenges());
 
   // Supabase: si ya había una sesión guardada, entra directo al inicio
   await initSupabase();

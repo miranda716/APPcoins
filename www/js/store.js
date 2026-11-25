@@ -1,3 +1,5 @@
+import { buildChallenges } from './data/challenges.js';
+
 // Estado global de la app + mini sistema de suscripción para re-renderizar.
 // TODO: conectar con Firebase Auth / Firestore.
 
@@ -9,7 +11,8 @@ export const state = {
     nombre: 'Sofía Martínez',
     usuario: 'sofia_unicordoba',
     correo: 'sofia.ambiental@correo.unicordoba.edu.co',
-    puntos: 1250,
+    puntos: 1250,            // saldo: sube al reciclar, baja al canjear
+    puntosHistoricos: 1450,  // solo sube; define el NIVEL
     co2Total: 18.4,
     reciclajesTotales: 32,
     codigoReferido: 'SOFIA-UNICOR',
@@ -22,12 +25,9 @@ export const state = {
   challengeTab: 'active',
   lastScanByPoint: {},
   flashOn: false,
-  challenges: [
-    { id: 'ch-1', titulo: 'Recicla 5 veces esta semana', meta: 5, progreso: 4, puntos: 100, tipo: 'reciclaje', completado: false },
-    { id: 'ch-2', titulo: 'Visita 3 comercios del campus', meta: 3, progreso: 2, puntos: 80, tipo: 'comercio', completado: false },
-    { id: 'ch-3', titulo: 'Invita a 3 compañeros Unicórdoba', meta: 3, progreso: 1, puntos: 150, tipo: 'referido', completado: false },
-    { id: 'ch-4', titulo: 'Primer reciclaje en Plazoleta El Ágora', meta: 1, progreso: 1, puntos: 60, tipo: 'reciclaje', completado: true }
-  ],
+  // Contadores del modo demo (con Supabase el progreso se calcula desde la base)
+  local: { recycles: 4, referidos: 1, claimed: ['rec-1', 'rec-3', 'inv-1'] },
+  challenges: [],
   history: [
     { mes: 'Noviembre 2026', titulo: 'Plástico · Plazoleta El Ágora', fecha: 'Hoy, 10:15 AM', puntos: 50 },
     { mes: 'Noviembre 2026', titulo: 'Canje: Descuento 15% Cafetería Central', fecha: 'Ayer, 1:20 PM', puntos: -200 },
@@ -36,9 +36,11 @@ export const state = {
   ]
 };
 
+state.challenges = buildChallenges(state.local.recycles, state.local.referidos, new Set(state.local.claimed));
+
 // Copia del estado inicial (usuario demo) para volver a él al cerrar sesión
 const initial = structuredClone({
-  user: state.user, history: state.history, challenges: state.challenges
+  user: state.user, history: state.history, challenges: state.challenges, local: state.local
 });
 
 export function resetState() {
@@ -47,6 +49,7 @@ export function resetState() {
   state.user = fresh.user;
   state.history = fresh.history;
   state.challenges = fresh.challenges;
+  state.local = fresh.local;
   state.lastScanByPoint = {};
 }
 

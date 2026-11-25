@@ -64,7 +64,7 @@ export function renderProfile() {
   document.getElementById('prof-name').textContent = u.nombre;
   document.getElementById('prof-avatar').textContent = u.nombre.charAt(0).toUpperCase();
   document.getElementById('prof-handle').textContent = `@${u.usuario} · Campus Unicórdoba`;
-  document.getElementById('prof-level').textContent = getLevelInfo(u.puntos).title;
+  document.getElementById('prof-level').textContent = getLevelInfo(u.puntosHistoricos).title;
   document.getElementById('prof-co2').textContent = `${u.co2Total.toFixed(1)} kg`;
   document.getElementById('prof-recycles').textContent = u.reciclajesTotales;
   document.getElementById('prof-ref').textContent = u.codigoReferido;
@@ -83,7 +83,7 @@ export async function logout() {
 
 export function shareAchievement() {
   const u = state.user;
-  const text = `¡Soy ${getLevelInfo(u.puntos).title} en Unicórdoba con ${u.co2Total.toFixed(1)} kg de CO₂ evitados! 🌿`;
+  const text = `¡Soy ${getLevelInfo(u.puntosHistoricos).title} en Unicórdoba con ${u.co2Total.toFixed(1)} kg de CO₂ evitados! 🌿`;
   if (navigator.share) {
     navigator.share({ title: 'EcoPuntos Unicórdoba', text }).catch(() => {});
   } else {

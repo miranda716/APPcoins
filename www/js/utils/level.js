@@ -1,11 +1,16 @@
-// Niveles según EcoPuntos acumulados.
+import { LEVELS } from '../data/levels.js';
 
-export function getLevelInfo(pts) {
-  if (pts >= 2000) {
-    return { title: 'Nivel 6 · Guardián del Sinú', min: 2000, next: 3000, nextLabel: `${3000 - pts} pts para Nivel 7` };
-  }
-  if (pts >= 1000) {
-    return { title: 'Nivel 5 · EcoGuerrero', min: 1000, next: 2000, nextLabel: `${2000 - pts} pts para Nivel 6` };
-  }
-  return { title: 'Nivel 1 · Semilla Verde', min: 0, next: 1000, nextLabel: `${1000 - pts} pts para Nivel 5` };
+/** Recibe los puntos HISTÓRICOS y devuelve el nivel actual y lo que falta para el siguiente. */
+export function getLevelInfo(puntosHistoricos) {
+  let i = 0;
+  LEVELS.forEach((l, idx) => { if (puntosHistoricos >= l.desde) i = idx; });
+  const actual = LEVELS[i];
+  const sig = LEVELS[i + 1] || null;
+  return {
+    nivel: actual.nivel,
+    title: `Nivel ${actual.nivel} · ${actual.nombre}`,
+    min: actual.desde,
+    next: sig ? sig.desde : null,
+    nextLabel: sig ? `${sig.desde - puntosHistoricos} pts para Nivel ${sig.nivel}` : '¡Nivel máximo!'
+  };
 }
