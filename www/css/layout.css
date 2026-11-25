@@ -10,4 +10,8 @@
 }
 .screen::-webkit-scrollbar { display: none; }
 .screen.active { display: flex; flex-direction: column; }
+
+/* Los bloques de una pantalla nunca se encogen (evita que las pestañas
+   de filtro queden aplastadas cuando hay muchas tarjetas) */
+.screen > * { flex-shrink: 0; }
 .screen.full-screen { padding-bottom: env(safe-area-inset-bottom, 0px); }
