@@ -9,20 +9,45 @@ export function onPosition(fn) {
   listeners.add(fn);
 }
 
-export function startLocationWatch() {
-  if (watchId !== null || !('geolocation' in navigator)) return;
+function publish(pos) {
+  state.userPos = { lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy };
+  state.gpsError = null;
+  listeners.forEach((fn) => fn(state.userPos));
+}
+
+function fail(err) {
+  const motivos = {
+    1: 'Permiso de ubicación denegado',
+    2: 'Tu dispositivo no pudo calcular la ubicación (activa los servicios de ubicación)',
+    3: 'Se agotó el tiempo buscando tu ubicación'
+  };
+  state.gpsError = motivos[err.code] || 'No se pudo obtener tu ubicación';
+  listeners.forEach((fn) => fn(null));
+}
+
+function watch(highAccuracy) {
   watchId = navigator.geolocation.watchPosition(
-    (pos) => {
-      state.userPos = { lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy };
-      state.gpsError = null;
-      listeners.forEach((fn) => fn(state.userPos));
-    },
+    publish,
     (err) => {
-      state.gpsError = err.code === 1 ? 'Permiso de ubicación denegado' : 'No se pudo obtener tu ubicación';
-      listeners.forEach((fn) => fn(null));
+      // En computadores el modo "alta precisión" suele fallar: reintenta en modo normal
+      if (highAccuracy && err.code !== 1) {
+        navigator.geolocation.clearWatch(watchId);
+        watch(false);
+        return;
+      }
+      fail(err);
     },
-    { enableHighAccuracy: true, maximumAge: 5000, timeout: 20000 }
+    { enableHighAccuracy: highAccuracy, maximumAge: 10000, timeout: highAccuracy ? 10000 : 30000 }
   );
+}
+
+export function startLocationWatch() {
+  if (watchId !== null) return;
+  if (!('geolocation' in navigator)) {
+    state.gpsError = 'Este navegador no soporta ubicación';
+    return;
+  }
+  watch(true);
 }
 
 /** Distancia en metros entre dos coordenadas (fórmula de Haversine). */

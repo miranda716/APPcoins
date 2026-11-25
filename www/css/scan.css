@@ -91,3 +91,33 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
 }
+
+/* Cámara real (html5-qrcode) */
+#qr-reader {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border: none !important;
+  overflow: hidden;
+}
+#qr-reader video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+.qr-guide-box { z-index: 1; }
+.qr-status {
+  position: absolute;
+  left: 14px; right: 14px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.5;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 12px;
+  border-radius: 14px;
+}
+.qr-status:empty { display: none; }

@@ -20,3 +20,7 @@ export const MAX_SCAN_DISTANCE_M = 100;
 // false = en pruebas NO se bloquea el escaneo si estás lejos del campus.
 // true  = se exige estar a menos de MAX_SCAN_DISTANCE_M del punto (producción).
 export const GPS_STRICT = false;
+
+// true  = muestra el panel "Simulador de escaneo" (útil para probar sin QR).
+// false = oculta el simulador (producción: solo se gana puntos escaneando QR reales).
+export const DEV_SIMULATOR = true;

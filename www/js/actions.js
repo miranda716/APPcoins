@@ -7,7 +7,7 @@ import { toggleDarkMode } from './utils/theme.js';
 import { loginDemo, openAuth } from './components/Welcome.js';
 import { switchAuthTab, handleLogin, handleRegister } from './components/Auth.js';
 import { filterMap, selectPoint, presetScan, locateMe } from './components/CampusMap.js';
-import { toggleFlash, testOutOfRange, simulateScan } from './components/Scan.js';
+import { toggleFlash, testOutOfRange, simulateScan, retryCamera } from './components/Scan.js';
 import { filterRewards, redeemReward } from './components/Rewards.js';
 import { switchChallengeTab } from './components/Challenges.js';
 import { logout, shareAchievement } from './components/Profile.js';
@@ -19,7 +19,7 @@ export function exposeActions() {
     loginDemo, openAuth,
     switchAuthTab, handleLogin, handleRegister,
     filterMap, selectPoint, presetScan, locateMe,
-    toggleFlash, testOutOfRange, simulateScan,
+    toggleFlash, testOutOfRange, simulateScan, retryCamera,
     filterRewards, redeemReward,
     switchChallengeTab,
     logout, shareAchievement,
