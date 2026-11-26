@@ -43,32 +43,22 @@ export const campusPoints = [
   },
   {
     id: 'com-cafe',
-    nombre: 'Cafetería Central Unicórdoba',
+    nombre: 'Cafetería Central',
     tipo: 'comercio',
     x: '73%', y: '73%',
     materiales: ['Comercio Aliado · Canje QR'],
     horario: 'Lun - Sáb · 6:30 AM - 7:30 PM',
     codigoQR: 'UNICOR-CAFE-05',
-    lat: 8.7908, lng: -75.8604
+    lat: 8.791234, lng: -75.862337
   },
   {
-    id: 'com-kiosco',
-    nombre: 'Kiosco Saludable El Bosque',
+    id: 'com-salud',
+    nombre: 'Cafetería de Salud',
     tipo: 'comercio',
     x: '56%', y: '33%',
     materiales: ['Comercio Aliado · Canje QR'],
-    horario: 'Lun - Vie · 7:30 AM - 6:00 PM',
-    codigoQR: 'UNICOR-KIOSCO-06',
-    lat: 8.7916, lng: -75.8608
-  },
-  {
-    id: 'com-papeleria',
-    nombre: 'Papelería Campus Sur',
-    tipo: 'comercio',
-    x: '38%', y: '82%',
-    materiales: ['Papel', 'Comercio Aliado · Canje QR'],
-    horario: 'Lun - Vie · 7:00 AM - 6:30 PM',
-    codigoQR: 'UNICOR-PAPEL-07',
-    lat: 8.7901, lng: -75.8612
+    horario: 'Lun - Sáb · 6:30 AM - 7:30 PM',
+    codigoQR: 'UNICOR-SALUD-06',
+    lat: 8.789530, lng: -75.858326
   }
 ];

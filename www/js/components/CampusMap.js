@@ -16,7 +16,7 @@ export function MapScreen() {
   </div>
 
   <div class="filter-chips" id="map-filters">
-    <button class="chip active" onclick="filterMap('Todos', this)">Todos (7)</button>
+    <button class="chip active" onclick="filterMap('Todos', this)">Todos (6)</button>
     <button class="chip" onclick="filterMap('Plástico', this)">🧴 Plástico</button>
     <button class="chip" onclick="filterMap('Papel', this)">📄 Papel</button>
     <button class="chip" onclick="filterMap('Vidrio', this)">🍾 Vidrio</button>

@@ -18,9 +18,8 @@ export function RewardsScreen() {
 
   <div class="filter-chips" id="reward-tabs">
     <button class="chip active" onclick="filterRewards('Todas', this)">Todas</button>
-    <button class="chip" onclick="filterRewards('Descuentos', this)">Descuentos</button>
-    <button class="chip" onclick="filterRewards('Productos', this)">Productos</button>
-    <button class="chip" onclick="filterRewards('Experiencias', this)">Experiencias</button>
+    <button class="chip" onclick="filterRewards('Cafetería Central', this)">☕ Cafetería Central</button>
+    <button class="chip" onclick="filterRewards('Cafetería de Salud', this)">☕ Cafetería de Salud</button>
   </div>
 
   <div class="section-pad" id="rewards-list"></div>
