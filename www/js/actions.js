@@ -10,7 +10,7 @@ import { filterMap, selectPoint, presetScan, locateMe } from './components/Campu
 import { toggleFlash, retryCamera, claimRecycle } from './components/Scan.js';
 import { filterRewards, redeemReward } from './components/Rewards.js';
 import { switchChallengeTab } from './components/Challenges.js';
-import { logout, shareAchievement } from './components/Profile.js';
+import { logout, shareAchievement, changeAvatar } from './components/Profile.js';
 import { openNotifications, openReferralModal, copyReferral, openReferralInput, submitReferralCode } from './components/Modals.js';
 
 export function exposeActions() {
@@ -22,7 +22,7 @@ export function exposeActions() {
     toggleFlash, retryCamera, claimRecycle,
     filterRewards, redeemReward,
     switchChallengeTab,
-    logout, shareAchievement,
+    logout, shareAchievement, changeAvatar,
     openNotifications, openReferralModal, copyReferral, openReferralInput, submitReferralCode
   });
 }

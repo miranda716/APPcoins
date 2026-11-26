@@ -18,7 +18,8 @@ export const state = {
     reciclajesTotales: 32,
     codigoReferido: 'SOFIA-UNICOR',
     doublePoints: false,
-    referidoPor: null
+    referidoPor: null,
+    avatarUrl: null          // enlace de la foto de perfil (null = se muestra la inicial)
   },
   selectedPointId: 'pt-agora',
   mapFilter: 'Todos',
