@@ -1,0 +1,84 @@
+/* Modales, toasts, cupón QR y filas de menú */
+
+/* Modals & Toasts */
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 60;
+}
+
+.modal-backdrop.open { display: flex; }
+
+.modal-card {
+  background: var(--card);
+  color: var(--text);
+  border-radius: 24px;
+  padding: 22px;
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+  animation: popIn 0.22s ease;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.toast {
+  position: absolute;
+  top: calc(14px + env(safe-area-inset-top, 0px));
+  left: 16px;
+  right: 16px;
+  background: #16241B;
+  color: #FFFFFF;
+  border-left: 4px solid #8BC34A;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+  z-index: 80;
+  display: none;
+}
+
+.toast.error { border-left-color: #FF5252; }
+.toast.show { display: block; animation: popIn 0.2s ease; }
+
+.qr-coupon-box {
+  width: 132px;
+  height: 132px;
+  margin: 14px auto;
+  padding: 10px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 2px dashed #1F6B34;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
+}
+
+.qr-cell { background: #16261B; border-radius: 2px; }
+.qr-cell.w { background: #FFFFFF; }
+
+.menu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}

@@ -1,0 +1,17 @@
+/* Pantallas (screens) y zonas seguras (notch / barra de gestos) */
+
+.screen {
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+  scrollbar-width: none;
+}
+.screen::-webkit-scrollbar { display: none; }
+.screen.active { display: flex; flex-direction: column; }
+
+/* Los bloques de una pantalla nunca se encogen (evita que las pestañas
+   de filtro queden aplastadas cuando hay muchas tarjetas) */
+.screen > * { flex-shrink: 0; }
+.screen.full-screen { padding-bottom: env(safe-area-inset-bottom, 0px); }

@@ -1,0 +1,163 @@
+/* Escáner QR */
+
+/* Scanner Screen */
+#screen-scan {
+  background: #0B140E;
+  color: #FFFFFF;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 20px calc(96px + env(safe-area-inset-bottom, 0px));
+}
+
+.scanner-viewport {
+  position: relative;
+  height: 270px;
+  border-radius: 24px;
+  background: radial-gradient(circle at center, #1b3824 0%, #09110c 100%);
+  border: 1px solid rgba(139, 195, 74, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 12px 0 16px;
+}
+
+.qr-guide-box {
+  width: 175px;
+  height: 175px;
+  border-radius: 22px;
+  border: 3px solid #8BC34A;
+  position: relative;
+  box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scan-laser {
+  position: absolute;
+  width: 90%;
+  height: 3px;
+  background: #8BC34A;
+  box-shadow: 0 0 12px #8BC34A;
+  animation: laserMove 2.2s ease-in-out infinite;
+}
+
+@keyframes laserMove {
+  0%, 100% { top: 14px; }
+  50% { top: 155px; }
+}
+
+.scanner-tools {
+  position: absolute;
+  bottom: 14px;
+  display: flex;
+  gap: 12px;
+  z-index: 5;
+}
+
+.tool-circle {
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFF;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sim-panel {
+  background: #16241B;
+  border: 1px solid #284030;
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.sim-panel select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #0E1711;
+  color: #FFF;
+  border: 1px solid #2F4D39;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.material-btns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+/* Cámara real (html5-qrcode) */
+#qr-reader {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border: none !important;
+  overflow: hidden;
+}
+#qr-reader video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+.qr-guide-box { z-index: 1; }
+.qr-status {
+  position: absolute;
+  left: 14px; right: 14px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.5;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 12px;
+  border-radius: 14px;
+}
+.qr-status:empty { display: none; }
+
+/* Materiales bloqueados (se desbloquean al leer su QR) y botón Reclamar */
+.lock-btn {
+  padding: 10px;
+  border: 1.5px dashed #3C5645;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #7C9684;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: not-allowed;
+}
+.claim-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px;
+  border: none;
+  border-radius: 999px;
+  background: #26392D;
+  color: #7C9684;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: not-allowed;
+}
+
+/* Material desbloqueado (solo indica que su QR se leyó bien) y Reclamar listo */
+.lock-btn.unlocked {
+  border: 1.5px solid #8BC34A;
+  background: rgba(139, 195, 74, 0.18);
+  color: #C5E1A5;
+  cursor: default;
+}
+.claim-btn.ready {
+  background: #8BC34A;
+  color: #0F2A17;
+  cursor: pointer;
+}
+.claim-btn.ready:active { transform: scale(0.98); }

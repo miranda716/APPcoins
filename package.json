@@ -1,0 +1,10 @@
+{
+  "name": "ecopuntos-unicordoba",
+  "version": "1.0.0",
+  "description": "EcoPuntos · Edición Campus Unicórdoba (GitHub Pages + Supabase + Leaflet)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "npx serve www"
+  }
+}
