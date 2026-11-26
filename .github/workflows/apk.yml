@@ -1,14 +1,15 @@
 name: Construir APK de prueba
 
-# Se ejecuta solo cuando subes cambios a la rama Test (o a mano desde Actions).
+# Se ejecuta cuando subes cambios a la rama main (o a mano desde Actions).
 on:
   push:
-    branches: [Test]
+    branches: [main]
     paths:
       - 'www/**'
       - 'package.json'
       - 'capacitor.config.json'
       - '.github/workflows/apk.yml'
+      - '.github/scripts/make_icons.py'
   workflow_dispatch:
 
 permissions:
@@ -39,6 +40,12 @@ jobs:
       # La carpeta android se crea aquí cada vez, no se guarda en el repositorio.
       - name: Crear proyecto Android
         run: npx cap add android
+
+      # Cambia el icono de Capacitor por el de EcoPuntos (usa www/icons/icon-512.png)
+      - name: Icono de la app
+        run: |
+          pip install pillow
+          python3 .github/scripts/make_icons.py
 
       - name: Permisos de GPS y cámara
         run: |
