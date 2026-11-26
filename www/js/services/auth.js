@@ -36,7 +36,8 @@ export async function loadUserData(user) {
     reciclajesTotales: p.reciclajes_totales,
     codigoReferido: p.codigo_referido,
     doublePoints: p.double_points,
-    referidoPor: p.referido_por
+    referidoPor: p.referido_por,
+    avatarUrl: p.avatar_url || null   // si la columna aún no existe, queda null y todo sigue funcionando
   };
 
   const { data: movs } = await sb
