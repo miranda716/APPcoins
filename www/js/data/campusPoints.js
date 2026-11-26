@@ -6,37 +6,37 @@ export const campusPoints = [
     nombre: 'Punto Ecológico Biblioteca Central',
     tipo: 'reciclaje',
     x: '26%', y: '22%',
-    materiales: ['Plástico', 'Papel', 'Aluminio'],
+    materiales: ['Plástico', 'Vidrio', 'Papel', 'Aluminio'],
     horario: 'Lun - Vie · 7:00 AM - 8:00 PM',
     codigoQR: 'UNICOR-BIBLIO-01',
     lat: 8.7918, lng: -75.8615
   },
   {
     id: 'pt-ing',
-    nombre: 'Estación Verde Bloque Ingenierías',
+    nombre: 'Bloque 11 Bioclimático',
     tipo: 'reciclaje',
     x: '74%', y: '25%',
-    materiales: ['Plástico', 'Vidrio', 'Aluminio'],
+    materiales: ['Plástico', 'Vidrio', 'Papel', 'Aluminio'],
     horario: 'Lun - Sáb · 6:30 AM - 9:00 PM',
     codigoQR: 'UNICOR-ING-02',
-    lat: 8.7921, lng: -75.8602
+    lat: 8.789615, lng: -75.859270
   },
   {
     id: 'pt-agora',
-    nombre: 'Punto Central Plazoleta El Ágora',
+    nombre: 'Edificio de Postgrados',
     tipo: 'reciclaje',
     x: '50%', y: '48%',
-    materiales: ['Plástico', 'Papel', 'Vidrio', 'Aluminio'],
+    materiales: ['Plástico', 'Vidrio', 'Papel', 'Aluminio'],
     horario: '24 Horas · Campus Central',
     codigoQR: 'UNICOR-AGORA-03',
-    lat: 8.7913, lng: -75.8611
+    lat: 8.788688477579003, lng: -75.85795985350926
   },
   {
     id: 'pt-basicas',
     nombre: 'EcoEstación Ciencias Básicas',
     tipo: 'reciclaje',
     x: '25%', y: '72%',
-    materiales: ['Vidrio', 'Plástico', 'Papel'],
+    materiales: ['Plástico', 'Vidrio', 'Papel', 'Aluminio'],
     horario: 'Lun - Vie · 7:00 AM - 7:00 PM',
     codigoQR: 'UNICOR-BASICAS-04',
     lat: 8.7905, lng: -75.8618

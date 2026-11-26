@@ -19,7 +19,7 @@ export function openNotifications() {
       </div>
       <div style="background:var(--bg); padding:10px; border-radius:12px;">
         <strong>📍 Punto cercano en el campus</strong>
-        <p style="font-size:12px; color:var(--text-muted);">Estás a 18m del Punto Central Plazoleta El Ágora.</p>
+        <p style="font-size:12px; color:var(--text-muted);">Estás a 18m del Edificio de Postgrados.</p>
       </div>
     </div>
     <button class="btn btn-primary" style="width:100%; margin-top:14px;" onclick="closeModal()">Cerrar</button>

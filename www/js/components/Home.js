@@ -71,7 +71,7 @@ export function HomeScreen() {
     <div class="promo-banner">
       <div>
         <h4>¡Recicla más, gana más!</h4>
-        <p>Puntos dobles hoy en Plazoleta El Ágora</p>
+        <p>Puntos dobles hoy en el Edificio de Postgrados</p>
       </div>
       <span style="font-size:26px;">♻️</span>
     </div>

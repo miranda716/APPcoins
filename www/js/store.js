@@ -35,10 +35,10 @@ export const state = {
   stats: null,
   challenges: [],
   history: [
-    { mes: 'Noviembre 2026', titulo: 'Plástico · Plazoleta El Ágora', fecha: 'Hoy, 10:15 AM', puntos: 50 },
+    { mes: 'Noviembre 2026', titulo: 'Plástico · Edificio de Postgrados', fecha: 'Hoy, 10:15 AM', puntos: 50 },
     { mes: 'Noviembre 2026', titulo: 'Canje: Descuento 15% Cafetería Central', fecha: 'Ayer, 1:20 PM', puntos: -200 },
     { mes: 'Noviembre 2026', titulo: 'Papel · Biblioteca Central', fecha: '19 Nov, 4:05 PM', puntos: 30 },
-    { mes: 'Octubre 2026', titulo: 'Vidrio · Bloque Ingenierías', fecha: '28 Oct, 11:40 AM', puntos: 40 }
+    { mes: 'Octubre 2026', titulo: 'Vidrio · Bloque 11 Bioclimático', fecha: '28 Oct, 11:40 AM', puntos: 40 }
   ]
 };
 

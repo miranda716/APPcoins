@@ -121,3 +121,29 @@
   border-radius: 14px;
 }
 .qr-status:empty { display: none; }
+
+/* Materiales bloqueados (se desbloquean al leer su QR) y botón Reclamar */
+.lock-btn {
+  padding: 10px;
+  border: 1.5px dashed #3C5645;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #7C9684;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: not-allowed;
+}
+.claim-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px;
+  border: none;
+  border-radius: 999px;
+  background: #26392D;
+  color: #7C9684;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: not-allowed;
+}

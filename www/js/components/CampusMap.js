@@ -148,7 +148,6 @@ export function locateMe() {
   }
 }
 
-export function presetScan(pointId) {
+export function presetScan() {
   switchTab('screen-scan');
-  document.getElementById('scan-point-select').value = pointId;
 }

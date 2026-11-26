@@ -2,8 +2,6 @@ import { state, emitChange } from '../store.js';
 import { campusPoints } from '../data/campusPoints.js';
 import { showToast, openModal } from '../utils/ui.js';
 import { monthLabel } from '../utils/date.js';
-import { GPS_STRICT, MAX_SCAN_DISTANCE_M, DEV_SIMULATOR } from '../config.js';
-import { startLocationWatch, distanceToPoint, formatDistance } from '../services/geo.js';
 import { saveProgress } from '../services/data.js';
 import { parseQR } from '../services/qr.js';
 import { refreshChallenges } from '../services/challenges.js';
@@ -18,7 +16,6 @@ export function ScanScreen() {
       <h2 style="font-size:20px; font-weight:900;">Escanear QR Campus</h2>
       <p style="font-size:12px; color:#A8C3B0;">Alinea el código QR con el marco</p>
     </div>
-    <span style="background:rgba(139,195,74,0.2); color:#8BC34A; padding:5px 10px; border-radius:999px; font-size:11px; font-weight:800;">GPS &lt; 100m</span>
   </div>
 
   <div class="scanner-viewport" id="scanner-box">
@@ -34,39 +31,22 @@ export function ScanScreen() {
   </div>
 
   <div class="sim-panel">
-    <div style="font-size:12px; font-weight:800; color:#8BC34A; margin-bottom:6px;">
-      SIMULADOR DE ESCANEO Y ANTIFRAUDE
-    </div>
-    <select id="scan-point-select"></select>
+    <div style="font-size:12px; font-weight:800; color:#8BC34A; margin-bottom:4px;">MATERIALES A RECLAMAR</div>
+    <p id="scan-hint" style="font-size:12px; color:#A8C3B0; margin-bottom:10px;">
+      Escanea los QR de las canecas. Cada material se desbloquea al leer su QR.
+    </p>
 
     <div class="material-btns">
-      <button class="btn btn-primary" style="padding:10px; font-size:13px;" onclick="simulateScan('Plástico', 50)">🧴 Plástico (+50)</button>
-      <button class="btn btn-primary" style="padding:10px; font-size:13px;" onclick="simulateScan('Vidrio', 40)">🍾 Vidrio (+40)</button>
-      <button class="btn btn-primary" style="padding:10px; font-size:13px;" onclick="simulateScan('Papel', 30)">📄 Papel (+30)</button>
-      <button class="btn btn-primary" style="padding:10px; font-size:13px;" onclick="simulateScan('Aluminio', 20)">🥫 Aluminio (+20)</button>
+      <button class="lock-btn" disabled>🔒 🧴 Plástico</button>
+      <button class="lock-btn" disabled>🔒 🍾 Vidrio</button>
+      <button class="lock-btn" disabled>🔒 📄 Papel</button>
+      <button class="lock-btn" disabled>🔒 🥫 Aluminio</button>
     </div>
 
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
-      <button class="btn" style="background:#26392D; color:#FFB74D; font-size:11px; padding:9px;" onclick="testOutOfRange()">
-        ⚠️ Probar fuera (&gt;100m)
-      </button>
-      <button class="btn" style="background:#26392D; color:#90CAF9; font-size:11px; padding:9px;" onclick="simulateScan('Plástico', 50, true)">
-        ⏱️ Repetir QR (&lt;30m)
-      </button>
-    </div>
+    <button class="claim-btn" id="claim-btn" disabled>Reclamar</button>
   </div>
 </section>
 `;
-}
-
-export function renderScannerSelect() {
-  const sel = document.getElementById('scan-point-select');
-  const current = sel.value;
-  sel.innerHTML = campusPoints.map((p) =>
-    `<option value="${p.id}">${p.nombre} (${p.codigoQR})</option>`
-  ).join('');
-  if (current) sel.value = current;
-  document.querySelector('.sim-panel').style.display = DEV_SIMULATOR ? '' : 'none';
 }
 
 // ─────────── Cámara y lectura de QR (librería html5-qrcode) ───────────
@@ -146,36 +126,12 @@ function onDecoded(text) {
   registerRecycle(parsed.point, parsed.material.label);
 }
 
-export function testOutOfRange() {
-  showToast('📍 Error GPS: Estás a más de 100m del punto de Unicórdoba.', true);
-}
-
-// Usado por el simulador (modo pruebas)
-export function simulateScan(materialLabel, _basePts, forceCooldown = false) {
-  const pointId = document.getElementById('scan-point-select').value || campusPoints[0].id;
-  registerRecycle(campusPoints.find((p) => p.id === pointId), materialLabel, forceCooldown);
-}
-
 // ─────────── Registrar un reciclaje (1 escaneo = 1 reciclaje) ───────────
 export function registerRecycle(point, materialLabel, forceCooldown = false) {
   const mat = materialByLabel(materialLabel);
   const key = `${point.id}:${materialLabel}`;
   const now = Date.now();
   const last = state.lastScanByPoint[key] || 0;
-
-  // Validación GPS real (solo se exige si GPS_STRICT = true en config.js)
-  startLocationWatch();
-  if (GPS_STRICT) {
-    const dist = distanceToPoint(point);
-    if (dist === null) {
-      showToast(state.gpsError || '📡 Activa el GPS y acepta el permiso para escanear.', true);
-      return;
-    }
-    if (dist > MAX_SCAN_DISTANCE_M) {
-      showToast(`📍 Estás a ${formatDistance(dist)} del punto. Acércate a menos de ${MAX_SCAN_DISTANCE_M} m.`, true);
-      return;
-    }
-  }
 
   if (forceCooldown || (last !== 0 && now - last < 30 * 60 * 1000)) {
     showToast('⏱️ Ya escaneaste este QR hace menos de 30 minutos.', true);
