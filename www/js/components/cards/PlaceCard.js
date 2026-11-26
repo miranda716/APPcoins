@@ -1,6 +1,9 @@
 // Detalle del punto seleccionado en el mapa. distLabel = "35 m", "1.2 km" o "—".
 
+import { estaAbierto } from '../../utils/schedule.js';
+
 export function PlaceCard(sel, distLabel) {
+  const estado = sel.tipo === 'reciclaje' ? (estaAbierto() ? ' · 🟢 Abierto' : ' · 🔴 Cerrado') : '';
   return `
     <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
       <div>
@@ -12,7 +15,7 @@ export function PlaceCard(sel, distLabel) {
       <span class="reward-chip">${distLabel}</span>
     </div>
     <p style="font-size:12px; color:var(--text-muted); margin:8px 0 4px; font-weight:700;">
-      🕒 ${sel.horario}
+      🕒 ${sel.horario}${estado}
     </p>
     <div style="display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 12px;">
       ${sel.materiales.map((m) => `<span style="background:var(--bg); border:1px solid var(--border); padding:4px 9px; border-radius:999px; font-size:11px; font-weight:800;">${m}</span>`).join('')}

@@ -7,9 +7,9 @@ export const campusPoints = [
     tipo: 'reciclaje',
     x: '26%', y: '22%',
     materiales: ['Plástico', 'Vidrio', 'Papel', 'Aluminio'],
-    horario: 'Lun - Vie · 7:00 AM - 8:00 PM',
+    horario: 'Lun - Sáb · 6:00 AM - 9:00 PM',
     codigoQR: 'UNICOR-BIBLIO-01',
-    lat: 8.7918, lng: -75.8615
+    lat: 8.790311, lng: -75.862202
   },
   {
     id: 'pt-ing',
@@ -17,7 +17,7 @@ export const campusPoints = [
     tipo: 'reciclaje',
     x: '74%', y: '25%',
     materiales: ['Plástico', 'Vidrio', 'Papel', 'Aluminio'],
-    horario: 'Lun - Sáb · 6:30 AM - 9:00 PM',
+    horario: 'Lun - Sáb · 6:00 AM - 9:00 PM',
     codigoQR: 'UNICOR-ING-02',
     lat: 8.789615, lng: -75.859270
   },
@@ -27,9 +27,9 @@ export const campusPoints = [
     tipo: 'reciclaje',
     x: '50%', y: '48%',
     materiales: ['Plástico', 'Vidrio', 'Papel', 'Aluminio'],
-    horario: '24 Horas · Campus Central',
+    horario: 'Lun - Sáb · 6:00 AM - 9:00 PM',
     codigoQR: 'UNICOR-AGORA-03',
-    lat: 8.788688477579003, lng: -75.85795985350926
+    lat: 8.788561, lng: -75.857973
   },
   {
     id: 'pt-basicas',
@@ -37,9 +37,9 @@ export const campusPoints = [
     tipo: 'reciclaje',
     x: '25%', y: '72%',
     materiales: ['Plástico', 'Vidrio', 'Papel', 'Aluminio'],
-    horario: 'Lun - Vie · 7:00 AM - 7:00 PM',
+    horario: 'Lun - Sáb · 6:00 AM - 9:00 PM',
     codigoQR: 'UNICOR-BASICAS-04',
-    lat: 8.7905, lng: -75.8618
+    lat: 8.792352, lng: -75.861727
   },
   {
     id: 'com-cafe',

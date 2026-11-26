@@ -4,6 +4,8 @@ import { buildChallenges } from './data/challenges.js';
 // TODO: conectar con Firebase Auth / Firestore.
 
 export const state = {
+  cooldowns: {},      // { 'Plástico': timestamp del último reclamo } → espera de 30 min por material
+  scanSession: null,  // { pointId, startedAt, unlocked: ['Plástico', …] } mientras se escanea
   session: null,      // { userId } cuando hay login con Supabase; null = modo demo
   userPos: null,      // { lat, lng, accuracy } del GPS
   gpsError: null,
@@ -57,6 +59,8 @@ export function resetState() {
   state.challenges = fresh.challenges;
   state.local = fresh.local;
   state.lastScanByPoint = {};
+  state.cooldowns = {};
+  state.scanSession = null;
 }
 
 const listeners = new Set();

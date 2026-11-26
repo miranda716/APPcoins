@@ -147,3 +147,17 @@
   font-weight: 900;
   cursor: not-allowed;
 }
+
+/* Material desbloqueado (solo indica que su QR se leyó bien) y Reclamar listo */
+.lock-btn.unlocked {
+  border: 1.5px solid #8BC34A;
+  background: rgba(139, 195, 74, 0.18);
+  color: #C5E1A5;
+  cursor: default;
+}
+.claim-btn.ready {
+  background: #8BC34A;
+  color: #0F2A17;
+  cursor: pointer;
+}
+.claim-btn.ready:active { transform: scale(0.98); }

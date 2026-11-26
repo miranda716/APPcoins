@@ -20,9 +20,14 @@ export async function saveProgress(movimiento) {
 
   let error2 = null;
   if (movimiento) {
-    ({ error: error2 } = await sb.from('movimientos').insert({
-      user_id: id, titulo: movimiento.titulo, puntos: movimiento.puntos, tipo: movimiento.tipo || 'reciclaje'
-    }));
+    const fila = { user_id: id, titulo: movimiento.titulo, puntos: movimiento.puntos, tipo: movimiento.tipo || 'reciclaje' };
+    if (movimiento.materiales) fila.materiales = movimiento.materiales;
+    ({ error: error2 } = await sb.from('movimientos').insert(fila));
+    if (error2 && fila.materiales) { // por si aún no ejecutaste actualizar_v3.sql
+      console.warn('Reintento sin "materiales":', error2.message);
+      delete fila.materiales;
+      ({ error: error2 } = await sb.from('movimientos').insert(fila));
+    }
   }
   if (error || error2) {
     console.error(error || error2);
