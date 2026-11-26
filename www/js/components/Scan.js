@@ -7,6 +7,7 @@ import { startLocationWatch, distanceToPoint, formatDistance } from '../services
 import { saveProgress } from '../services/data.js';
 import { parseQR } from '../services/qr.js';
 import { refreshChallenges } from '../services/challenges.js';
+import { addDemoRecycle } from '../services/stats.js';
 import { materialByLabel } from '../data/materials.js';
 
 export function ScanScreen() {
@@ -186,9 +187,8 @@ export function registerRecycle(point, materialLabel, forceCooldown = false) {
 
   state.user.puntos += earned;
   state.user.puntosHistoricos += earned;
-  if (!state.session) state.local.recycles += 1; // demo
+  if (!state.session) { state.local.recycles += 1; addDemoRecycle(); } // demo
   state.user.reciclajesTotales += 1;
-  state.user.co2Total += mat.co2;
   state.user.doublePoints = false;
 
   state.history.unshift({
@@ -212,7 +212,7 @@ export function registerRecycle(point, materialLabel, forceCooldown = false) {
       +${earned} EcoPuntos
     </div>
     <p style="font-size:12px; font-weight:700; color:var(--text-muted);">
-      Material: <strong>${materialLabel}</strong> · CO₂ evitado: <strong>+${mat.co2.toFixed(2)} kg</strong>
+      Material: <strong>${materialLabel}</strong>
     </p>
     <button class="btn btn-primary" style="width:100%; margin-top:16px;" onclick="closeModal()">Continuar</button>
   `);

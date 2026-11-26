@@ -14,7 +14,6 @@ export async function saveProgress(movimiento) {
   const { error } = await sb.from('profiles').update({
     puntos: u.puntos,
     puntos_historicos: u.puntosHistoricos,
-    co2_total: u.co2Total,
     reciclajes_totales: u.reciclajesTotales,
     double_points: u.doublePoints
   }).eq('id', id);

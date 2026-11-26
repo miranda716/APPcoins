@@ -8,6 +8,7 @@ export function getLevelInfo(puntosHistoricos) {
   const sig = LEVELS[i + 1] || null;
   return {
     nivel: actual.nivel,
+    nombre: actual.nombre,
     title: `Nivel ${actual.nivel} · ${actual.nombre}`,
     min: actual.desde,
     next: sig ? sig.desde : null,

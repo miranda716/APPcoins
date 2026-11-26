@@ -24,22 +24,22 @@ export function HomeScreen() {
           <div class="points-label">Tus EcoPuntos</div>
           <div class="points-value" id="home-points">1,250</div>
         </div>
-        <div class="level-badge" id="home-level-badge">🌿 Nivel 5 · EcoGuerrero</div>
+        <div class="level-badge" id="home-level-badge">🌿 Nivel 7 · Guardián del Campus</div>
       </div>
       <div class="progress-track">
-        <div class="progress-fill" id="home-level-bar" style="width: 25%;"></div>
+        <div class="progress-fill" id="home-level-bar" style="width: 80%;"></div>
       </div>
       <div class="progress-caption">
-        <span id="home-level-range">1,000 pts</span>
-        <span id="home-level-next">750 pts para Nivel 6</span>
+        <span id="home-level-range">200 pts</span>
+        <span id="home-level-next">20 pts para Nivel 8</span>
       </div>
     </div>
 
     <!-- Widget Impacto Universitario -->
     <div class="campus-impact-strip">
       <div class="impact-pill-card">
-        <strong id="home-co2">18.4 kg</strong>
-        <span>CO₂ evitado</span>
+        <strong id="home-level-num">Nivel 7</strong>
+        <span id="home-level-name">Guardián del Campus</span>
       </div>
       <div class="impact-pill-card">
         <strong id="home-recycles">32</strong>
@@ -100,7 +100,8 @@ export function renderHome() {
   document.getElementById('home-level-bar').style.width = pct + '%';
   document.getElementById('home-level-range').textContent = `${lvl.min.toLocaleString('es-CO')} pts`;
   document.getElementById('home-level-next').textContent = lvl.nextLabel;
-  document.getElementById('home-co2').textContent = `${u.co2Total.toFixed(1)} kg`;
+  document.getElementById('home-level-num').textContent = `Nivel ${lvl.nivel}`;
+  document.getElementById('home-level-name').textContent = lvl.nombre;
   document.getElementById('home-recycles').textContent = u.reciclajesTotales;
 
   const active = state.challenges.filter((c) => !c.completado).slice(0, 2);

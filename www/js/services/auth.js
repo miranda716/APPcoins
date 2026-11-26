@@ -33,7 +33,6 @@ export async function loadUserData(user) {
     correo: user.email,
     puntos: p.puntos,
     puntosHistoricos: p.puntos_historicos,
-    co2Total: Number(p.co2_total),
     reciclajesTotales: p.reciclajes_totales,
     codigoReferido: p.codigo_referido,
     doublePoints: p.double_points,

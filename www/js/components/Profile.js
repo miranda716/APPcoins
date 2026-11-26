@@ -19,12 +19,12 @@ export function ProfileScreen() {
       </div>
       <h3 id="prof-name" style="font-size:19px; font-weight:900;">Sofía Martínez</h3>
       <p id="prof-handle" style="font-size:13px; color:var(--text-muted); font-weight:700;">@sofia_unicordoba · Ing. Ambiental</p>
-      <div class="reward-chip" id="prof-level" style="display:inline-block; margin-top:8px;">Nivel 5 · EcoGuerrero</div>
+      <div class="reward-chip" id="prof-level" style="display:inline-block; margin-top:8px;">Nivel 7 · Guardián del Campus</div>
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px; padding-top:14px; border-top:1px solid var(--border);">
         <div>
-          <strong id="prof-co2" style="font-size:20px; color:var(--primary); display:block;">18.4 kg</strong>
-          <span style="font-size:12px; color:var(--text-muted); font-weight:700;">CO₂ evitado</span>
+          <strong id="prof-hist" style="font-size:20px; color:var(--primary); display:block;">280</strong>
+          <span style="font-size:12px; color:var(--text-muted); font-weight:700;">Puntos acumulados</span>
         </div>
         <div>
           <strong id="prof-recycles" style="font-size:20px; color:var(--primary); display:block;">32</strong>
@@ -33,7 +33,7 @@ export function ProfileScreen() {
       </div>
     </div>
 
-    <div class="menu-row" onclick="showToast('📊 Has evitado 18.4 kg de CO₂, equivalente a plantar 2 árboles en el campus.')">
+    <div class="menu-row" onclick="goScreen('screen-stats')">
       <span>📊 Mis estadísticas</span><span>›</span>
     </div>
     <div class="menu-row" onclick="shareAchievement()">
@@ -65,7 +65,7 @@ export function renderProfile() {
   document.getElementById('prof-avatar').textContent = u.nombre.charAt(0).toUpperCase();
   document.getElementById('prof-handle').textContent = `@${u.usuario} · Campus Unicórdoba`;
   document.getElementById('prof-level').textContent = getLevelInfo(u.puntosHistoricos).title;
-  document.getElementById('prof-co2').textContent = `${u.co2Total.toFixed(1)} kg`;
+  document.getElementById('prof-hist').textContent = u.puntosHistoricos.toLocaleString('es-CO');
   document.getElementById('prof-recycles').textContent = u.reciclajesTotales;
   document.getElementById('prof-ref').textContent = u.codigoReferido;
 }
@@ -83,7 +83,7 @@ export async function logout() {
 
 export function shareAchievement() {
   const u = state.user;
-  const text = `¡Soy ${getLevelInfo(u.puntosHistoricos).title} en Unicórdoba con ${u.co2Total.toFixed(1)} kg de CO₂ evitados! 🌿`;
+  const text = `¡Soy ${getLevelInfo(u.puntosHistoricos).title} en Unicórdoba y ${u.reciclajesTotales} reciclajes! 🌿`;
   if (navigator.share) {
     navigator.share({ title: 'EcoPuntos Unicórdoba', text }).catch(() => {});
   } else {

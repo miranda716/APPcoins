@@ -15,6 +15,8 @@ import { HistoryScreen } from './components/History.js';
 import { RewardsScreen } from './components/Rewards.js';
 import { ChallengesScreen } from './components/Challenges.js';
 import { ProfileScreen } from './components/Profile.js';
+import { StatsScreen, renderStats } from './components/Stats.js';
+import { loadStats } from './services/stats.js';
 import { BottomNav } from './components/BottomNav.js';
 import { Overlays } from './components/Overlays.js';
 
@@ -30,6 +32,7 @@ function mount() {
     RewardsScreen(),
     ChallengesScreen(),
     ProfileScreen(),
+    StatsScreen(),
     BottomNav()
   ].join('\n');
 }
@@ -43,6 +46,7 @@ async function boot() {
   // Al abrir Inicio o Desafíos se recalcula el progreso (semana nueva, invitados nuevos…)
   onEnter('screen-home', () => refreshChallenges());
   onEnter('screen-challenges', () => refreshChallenges());
+  onEnter('screen-stats', async () => { renderStats(); await loadStats(); renderStats(); });
 
   // Supabase: si ya había una sesión guardada, entra directo al inicio
   await initSupabase();

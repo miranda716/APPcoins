@@ -11,9 +11,8 @@ export const state = {
     nombre: 'Sofía Martínez',
     usuario: 'sofia_unicordoba',
     correo: 'sofia.ambiental@correo.unicordoba.edu.co',
-    puntos: 1250,            // saldo: sube al reciclar, baja al canjear
-    puntosHistoricos: 1450,  // solo sube; define el NIVEL
-    co2Total: 18.4,
+    puntos: 250,             // saldo: sube al reciclar, baja al canjear
+    puntosHistoricos: 280,   // solo sube; define el NIVEL
     reciclajesTotales: 32,
     codigoReferido: 'SOFIA-UNICOR',
     doublePoints: false,
@@ -26,7 +25,14 @@ export const state = {
   lastScanByPoint: {},
   flashOn: false,
   // Contadores del modo demo (con Supabase el progreso se calcula desde la base)
-  local: { recycles: 4, referidos: 1, claimed: ['rec-1', 'rec-3', 'inv-1'] },
+  local: {
+    recycles: 4, referidos: 1, claimed: ['rec-1', 'rec-3', 'inv-1'],
+    // estadísticas de ejemplo: reciclajes por día (Lun–Sáb) y mes con aporte (Ene–Dic)
+    weekCounts: [1, 2, 1, 0, 0, 0],
+    monthFlags: [1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0],
+    monthCount: 6
+  },
+  stats: null,
   challenges: [],
   history: [
     { mes: 'Noviembre 2026', titulo: 'Plástico · Plazoleta El Ágora', fecha: 'Hoy, 10:15 AM', puntos: 50 },
