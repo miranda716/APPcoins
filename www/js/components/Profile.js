@@ -3,6 +3,7 @@ import { getLevelInfo } from '../utils/level.js';
 import { goScreen } from '../router.js';
 import { showToast } from '../utils/ui.js';
 import { signOut } from '../services/auth.js';
+import { uploadAvatar } from '../services/avatar.js';
 
 export function ProfileScreen() {
   return /* html */ `
@@ -14,9 +15,16 @@ export function ProfileScreen() {
 
   <div class="section-pad">
     <div class="card" style="text-align:center; padding:20px;">
-      <div style="width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg,#1F6B34,#8BC34A); color:#FFF; font-size:28px; font-weight:900; display:flex; align-items:center; justify-content:center; margin:0 auto 10px;">
+      <!-- Foto de perfil: se toca para cambiarla -->
+      <div style="position:relative; width:72px; height:72px; margin:0 auto 10px; cursor:pointer;" onclick="document.getElementById('avatar-input').click()" title="Cambiar foto">
+        <div style="width:72px; height:72px; border-radius:50%; overflow:hidden; background:linear-gradient(135deg,#1F6B34,#8BC34A); color:#FFF; font-size:28px; font-weight:900; display:flex; align-items:center; justify-content:center;">
           <span id="prof-avatar">S</span>
+          <img id="prof-avatar-img" alt="Foto de perfil" style="display:none; width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div style="position:absolute; right:-2px; bottom:-2px; width:26px; height:26px; border-radius:50%; background:var(--primary); border:2px solid var(--card, #FFF); display:flex; align-items:center; justify-content:center; font-size:13px;">📷</div>
       </div>
+      <input type="file" id="avatar-input" accept="image/*" style="display:none;" onchange="changeAvatar(this)">
+
       <h3 id="prof-name" style="font-size:19px; font-weight:900;">Sofía Martínez</h3>
       <p id="prof-handle" style="font-size:13px; color:var(--text-muted); font-weight:700;">@sofia_unicordoba · Ing. Ambiental</p>
       <div class="reward-chip" id="prof-level" style="display:inline-block; margin-top:8px;">Nivel 7 · Guardián del Campus</div>
@@ -68,6 +76,36 @@ export function renderProfile() {
   document.getElementById('prof-hist').textContent = u.puntosHistoricos.toLocaleString('es-CO');
   document.getElementById('prof-recycles').textContent = u.reciclajesTotales;
   document.getElementById('prof-ref').textContent = u.codigoReferido;
+
+  // Foto: si hay, se muestra; si no, queda la inicial de siempre
+  const img = document.getElementById('prof-avatar-img');
+  const initial = document.getElementById('prof-avatar');
+  if (u.avatarUrl) {
+    if (img.getAttribute('src') !== u.avatarUrl) img.src = u.avatarUrl;
+    img.style.display = 'block';
+    initial.style.display = 'none';
+  } else {
+    img.removeAttribute('src');
+    img.style.display = 'none';
+    initial.style.display = '';
+  }
+}
+
+/** Se ejecuta al elegir una foto en el selector de archivos. */
+export async function changeAvatar(input) {
+  const file = input.files && input.files[0];
+  input.value = ''; // permite elegir la misma foto otra vez
+  if (!file) return;
+
+  showToast('⏳ Subiendo foto…');
+  try {
+    await uploadAvatar(file);
+    emitChange();
+    showToast('📸 Foto de perfil actualizada');
+  } catch (err) {
+    console.error(err);
+    showToast('⚠️ ' + (err.message || 'No se pudo subir la foto'), true);
+  }
 }
 
 export async function logout() {
